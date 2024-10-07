@@ -13,6 +13,7 @@ namespace парикмахерская
 {
     public partial class Form9 : Form
     {
+    // Строка подключения к базе данных - лучше хранить в конфигурационном файле
         private string connectionString = "server=localhost;database=hair1;Uid=root;Pwd=vekzIc-gyxqi1-syjjiw;";
         public Form9()
         {
@@ -33,13 +34,13 @@ namespace парикмахерская
             {
                 var services = context.Services.ToList();
 
-                // Фильтруем данные
+                // Проверка на пустоту поискового запроса
                 if (!string.IsNullOrEmpty(searchQuery))
                 {
                     services = services.Where(s => s.Name.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)).ToList(); // IgnoreCase для игнорирования регистра
                 }
 
-                // Отображаем данные в DataGridView
+              // Очистка DataGridView, если запрос пустой
                 dataGridView1.DataSource = services;
             }
         }
