@@ -19,7 +19,7 @@ namespace парикмахерская
         {
             InitializeComponent();
         }
-        public class Service
+        public class Service  // Класс сервиса
         {
             public int Id { get; set; }
             public string Name { get; set; }
@@ -58,12 +58,12 @@ namespace парикмахерская
                 dataGridView1.DataSource = services;
             }
         }
-
+   // Обработка клика по кнопке "Закрыть"
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
         }
-
+// Неиспользуемый метод 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
