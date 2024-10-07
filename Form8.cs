@@ -14,12 +14,13 @@ namespace парикмахерская
 {
     public partial class Form8 : Form
     {
+     // Строка подключения к базе данных - лучше хранить в конфигурационном файле
         private string connectionString = "server=localhost;database=hair1;Uid=root;Pwd=vekzIc-gyxqi1-syjjiw;";
         public Form8()
         {
             InitializeComponent();
         }
-
+ // Модель сущности для таблицы Master
         public class Master
         {
             public int Id { get; set; }
@@ -27,9 +28,10 @@ namespace парикмахерская
             public string name { get; set; }
             public string otchectvo { get; set; }
         }
-
+ // Класс контекста базы данных
         public class HairContext : DbContext
         {
+        // Строка подключения - лучше хранить в конфигурационном файле
             private readonly string connectionString = "server=localhost;database=hair1;Uid=root;Pwd=vekzIc-gyxqi1-syjjiw;";
 
             public DbSet<Master> Master { get; set; }
@@ -39,12 +41,12 @@ namespace парикмахерская
                 optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
             }
         }
-
+ // Обработка клика по кнопке "Закрыть"
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
         }
-
+ // Обработка клика по кнопке "Поиск"
         private void button1_Click(object sender, EventArgs e)
         {
             // Получаем поисковый запрос
