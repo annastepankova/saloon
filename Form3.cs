@@ -86,6 +86,7 @@ namespace парикмахерская
     // Контекст Entity Framework
     public class RegistrationContext : DbContext
     {
+      // Строка подключения к базе данных - лучше хранить в конфигурационном файле
         private readonly string connectionString; // Объявление поля
 
         public RegistrationContext(string connectionString) : base()
