@@ -22,7 +22,7 @@ namespace парикмахерская
             Form6 MasterForm = new Form6();
             MasterForm.ShowDialog();//мастера
         }
-
+// Удалить неиспользуемые методы
         private void button5_Click(object sender, EventArgs e)
         {
             //Form8 FeedbackForm = new Form8();
