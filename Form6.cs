@@ -16,12 +16,12 @@ namespace парикмахерская
         {
             InitializeComponent();
         }
-
+  // Закрыть текущую форму
         private void button1_Click(object sender, EventArgs e)
         {
             Close();
         }
-
+ // Открыть форму для добавления мастера
         private void button2_Click(object sender, EventArgs e)
         {
             Form7 MasterForm = new Form7();
