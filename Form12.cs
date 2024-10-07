@@ -125,7 +125,7 @@ namespace парикмахерская
 
 
         }
-
+// Удалить неиспользуемые методы
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
