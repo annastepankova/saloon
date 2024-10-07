@@ -92,7 +92,7 @@ namespace парикмахерская
 
             public DbSet<FreeTime> FreeTime { get; set; }
         }
-
+// Удалить неиспользуемые методы
         private void button1_Click(object sender, EventArgs e)
         {
 
