@@ -16,6 +16,7 @@ namespace парикмахерская
 {
     public partial class Form5 : Form
     {
+    // Подключение к базе данных MySQL
         MySqlConnection connection;
 
         string currentTableName; // Хранит имя текущей таблицы
@@ -105,7 +106,7 @@ namespace парикмахерская
             currentTableName = query.Split(' ')[2].Replace(";", ""); // Получение имени таблицы из запроса
             currentTabPage = tabPage;
         }
-
+ // Метод для выполнения SQL-запроса
         private void ExecuteQuery(string query, TabPage tabPage, DataGridView dataGridView)
         {
             try
