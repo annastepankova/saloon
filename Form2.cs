@@ -37,6 +37,7 @@ namespace парикмахерская
         {
             try
             {
+              // Получение данных из полей ввода
                 string familiya = textBox1.Text;
                 string imya = textBox2.Text;
                 string login = textBox3.Text;
@@ -47,6 +48,7 @@ namespace парикмахерская
                 {
                     //
                     db.Database.EnsureCreated();
+                     // Создание нового пользователя
                     User user = new User
                     {
                         Familiya = familiya,
@@ -77,6 +79,7 @@ namespace парикмахерская
             public DbSet<User> Users { get; set; }
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
+            // Строка подключения к базе данных - лучше хранить в конфигурационном файле
                 string connectionString = "Server=localhost;Database=registration2;Uid=root;Pwd=vekzIc-gyxqi1-syjjiw;";
                 optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 25)));
             }
