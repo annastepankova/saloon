@@ -1,65 +1,91 @@
-﻿using Microsoft.EntityFrameworkCore;
+// Подключение для работы с MySQL базой данных.
+using MySql.Data.MySqlClient;
+// Подключение пространства имен System, содержащее базовые типы данных и функции.
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+// Подключение пространства имен System.Data, содержащее классы для работы с данными.
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+// Подключение пространства имен System.Windows.Forms, содержащее классы для работы с Windows Forms.
 using System.Windows.Forms;
 
-namespace парикмахерская
+// Объявление пространства имен проекта. Название слишком длинное и неинформативное. Рекомендуется заменить на что-то более короткое и осмысленное, например, `SalonBeauty.Forms`.
+namespace курсовая_работа_3_курс__салон_красоты_
 {
+    // Объявление частичного класса Form9, наследуемого от класса Form. `partial` указывает, что определение класса разделено на несколько файлов (один генерируется дизайнером форм, другой пишется вручную).
     public partial class Form9 : Form
     {
-        private string connectionString = "server=localhost;database=hair1;Uid=root;Pwd=vekzIc-gyxqi1-syjjiw;";
+        // Строка подключения к базе данных. Хранение строки подключения напрямую в коде не рекомендуется - лучше использовать файл конфигурации или переменные окружения.
+        private string connectionString = "Server=localhost;Database=saloon;Uid=root;Pwd=vekzIc-gyxqi1-syjjiw;";
         public Form9()
         {
             InitializeComponent();
+            // Загрузка свободного времени при инициализации формы.
+            LoadFreeTime();
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        // Метод для загрузки данных о свободном времени из базы данных.
+        private void LoadFreeTime()
         {
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            // Получаем поисковый запрос из TextBox
-            string searchQuery = textBox1.Text;
-
-            // Получаем данные из БД
-            using (var context = new HairContext())
+            // Используется using для автоматического закрытия соединения с базой данных.
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                var services = context.Services.ToList();
-
-                // Фильтруем данные
-                if (!string.IsNullOrEmpty(searchQuery))
+                try
                 {
-                    services = services.Where(s => s.Name.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)).ToList(); // IgnoreCase для игнорирования регистра
-                }
+                    // Открытие соединения с базой данных.
+                    connection.Open();
+                    // SQL-запрос для выбора id, даты и времени из таблицы freetime, где isBooked = 0 (не забронировано).
+                    using (MySqlCommand command = new MySqlCommand("SELECT id, date, time FROM freetime WHERE isBooked = 0", connection))
+                    {
+                        // Используется MySqlDataAdapter для заполнения DataTable данными из базы данных.
+                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                        {
+                            // Создание DataTable для хранения данных.
+                            DataTable freeTimeTable = new DataTable();
+                            // Заполнение DataTable данными из базы данных.
+                            adapter.Fill(freeTimeTable);
+                            // Установка DataTable в качестве источника данных для DataGridView.
+                            dataGridView1.DataSource = freeTimeTable;
 
-                // Отображаем данные в DataGridView
-                dataGridView1.DataSource = services;
+                            // Установка заголовков столбцов. Лучше получать эти заголовки динамически из схемы БД.
+                            dataGridView1.Columns[0].HeaderText = "ID";
+                            dataGridView1.Columns[1].HeaderText = "Дата";
+                            dataGridView1.Columns[2].HeaderText = "Время";
+
+                        }
+                    }
+                }
+                // Обработка исключений, возникающих при работе с базой данных.
+                catch (Exception ex)
+                {
+                    // Отображение сообщения об ошибке пользователю.
+                    MessageBox.Show("Ошибка при загрузке свободного времени: " + ex.Message);
+                }
             }
         }
-    }
-    public class Service
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-    }
-    public class HairContext : DbContext
-    {
-        private readonly string connectionString = "server=localhost;database=hair;Uid=root;Pwd=vekzIc-gyxqi1-syjjiw;";
 
-        public DbSet<Service> Services { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // Обработчик события Click на ячейку DataGridView.
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            // Проверка на корректность индекса строки.
+            if (e.RowIndex >= 0)
+            {
+                // Извлечение ID, даты и времени из выбранной строки DataGridView.
+                int freeTimeId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["id"].Value);
+                DateTime selectedDate = Convert.ToDateTime(dataGridView1.Rows[e.RowIndex].Cells["date"].Value);
+                string selectedTime = dataGridView1.Rows[e.RowIndex].Cells["time"].Value.ToString();
+                // Создание экземпляра формы Form10 и передача необходимых данных.
+                Form10 form10 = new Form10(freeTimeId, selectedDate, selectedTime, connectionString);
+                // Отображение формы Form10 в модальном режиме.
+                form10.ShowDialog(); // ShowDialog() блокирует Form9 пока Form10 открыта
+                // Обновление таблицы свободного времени после закрытия Form10.
+                LoadFreeTime(); //Обновляем таблицу после закрытия Form10
+
+            }
+        }
+
+        // Обработчик события Click для кнопки button1.
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Закрытие текущей формы (Form9).
+            Close();
         }
     }
-
 }
