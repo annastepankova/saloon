@@ -1,5 +1,3 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,20 +7,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace парикмахерская
+namespace курсовая_работа_3_курс__салон_красоты_
 {
     public partial class Form2 : Form
     {
+        string connectionString = "Server=localhost;Database=saloon;Uid=root;Pwd=vekzIc-gyxqi1-syjjiw;";
         public Form2()
         {
             InitializeComponent();
+            // Устанавливаем символ для отображения пароля
+            textBox4.PasswordChar = '*';
         }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-        // Класс User, определяющий структуру объекта User со свойствами Id, Familiya, Imya, Login, Parol, Kodovoeslovo
         public class User
         {
             public int Id { get; set; }
@@ -40,8 +35,9 @@ namespace парикмахерская
                 string familiya = textBox1.Text;
                 string imya = textBox2.Text;
                 string login = textBox3.Text;
-                string parol = textBox5.Text;
-                string kodovoeslovo = textBox4.Text;
+                string parol = textBox4.Text;
+                string kodovoeslovo = textBox5.Text;
+              
                 // Добавление пользователей в БД
                 using (ApplicationContext db = new ApplicationContext())
                 {
@@ -52,7 +48,7 @@ namespace парикмахерская
                         Familiya = familiya,
                         Imya = imya,
                         Login = login,
-                        Parol = parol,
+                        Parol = parol, 
                         Kodovoeslovo = kodovoeslovo
                     };
                     db.Users.Add(user);
@@ -71,15 +67,22 @@ namespace парикмахерская
 
             }
         }
+       
         // Класс, предоставляющий контекст для взаимодействия с БД
         public class ApplicationContext : DbContext
         {
             public DbSet<User> Users { get; set; }
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
-                string connectionString = "Server=localhost;Database=registration2;Uid=root;Pwd=vekzIc-gyxqi1-syjjiw;";
+                string connectionString = "Server=localhost;Database=saloon;Uid=root;Pwd=vekzIc-gyxqi1-syjjiw;";
                 optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 25)));
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
+
 }
