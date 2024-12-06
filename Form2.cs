@@ -7,15 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace курсовая_работа_3_курс__салон_красоты_// Название пространства имен, может быть улучшено для соответствия стандартам кодирования.
+namespace курсовая_работа_3_курс__салон_красоты_
 {
     public partial class Form2 : Form
     {
-        string connectionString = "Server=localhost;Database=saloon;Uid=root;Pwd=vekzIc-gyxqi1-syjjiw;";// Строка подключения к базе данных. Рекомендуется использовать конфигурационные файлы для хранения таких данных.
+        string connectionString = "Server=localhost;Database=saloon;Uid=root;Pwd=vekzIc-gyxqi1-syjjiw;";
         public Form2()
         {
             InitializeComponent();
-            // Устанавливаем символ для отображения пароля
+      
             textBox4.PasswordChar = '*';
         }
         public class User
@@ -24,7 +24,7 @@ namespace курсовая_работа_3_курс__салон_красоты_//
             public string Familiya { get; set; }
             public string Imya { get; set; }
             public string Login { get; set; }
-            public string Parol { get; set; }// Свойство пароля пользователя. Рекомендуется хранить пароли в зашифрованном виде.
+            public string Parol { get; set; }
             public string Kodovoeslovo { get; set; }
         }
 
@@ -35,13 +35,13 @@ namespace курсовая_работа_3_курс__салон_красоты_//
                 string familiya = textBox1.Text;
                 string imya = textBox2.Text;
                 string login = textBox3.Text;
-                string parol = textBox4.Text;// Свойство пароля пользователя. Рекомендуется хранить пароли в зашифрованном виде.
+                string parol = textBox4.Text;
                 string kodovoeslovo = textBox5.Text;
               
-                // Добавление пользователей в БД
+            
                 using (ApplicationContext db = new ApplicationContext())
                 {
-                    //
+  
                     db.Database.EnsureCreated();
                     User user = new User
                     {
@@ -68,13 +68,12 @@ namespace курсовая_работа_3_курс__салон_красоты_//
             }
         }
        
-        // Класс, предоставляющий контекст для взаимодействия с БД
         public class ApplicationContext : DbContext
         {
             public DbSet<User> Users { get; set; }
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
-                string connectionString = "Server=localhost;Database=saloon;Uid=root;Pwd=vekzIc-gyxqi1-syjjiw;";// Строка подключения. Рекомендуется использовать конфигурационные файлы для хранения таких данных.
+                string connectionString = "Server=localhost;Database=saloon;Uid=root;Pwd=vekzIc-gyxqi1-syjjiw;";
                 optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 25)));
             }
         }
