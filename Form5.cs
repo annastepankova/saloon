@@ -1,34 +1,19 @@
-// Подключение пространства имен System, содержащее базовые типы данных и функции.
+
 using System;
-// Подключение пространства имен System.Collections.Generic, содержащее интерфейсы и классы для работы со списками и коллекциями.
 using System.Collections.Generic;
-// Подключение пространства имен System.ComponentModel, содержащее классы для работы со свойствами компонентов и данных.
 using System.ComponentModel;
-// Подключение пространства имен System.Data, содержащее классы для работы с данными.
 using System.Data;
-// Подключение пространства имен System.Drawing, содержащее классы для работы с графикой.
 using System.Drawing;
-// Подключение пространства имен System.Linq, содержащее классы для работы с запросами LINQ.
 using System.Linq;
-// Подключение пространства имен System.Runtime.CompilerServices, содержащее атрибуты для компилятора.
 using System.Runtime.CompilerServices;
-// Подключение пространства имен System.Text, содержащее классы для работы со строками.
 using System.Text;
-// Подключение пространства имен System.Threading.Tasks, содержащее классы для работы с асинхронными операциями.
 using System.Threading.Tasks;
-// Подключение пространства имен System.Windows.Forms, содержащее классы для работы с Windows Forms.
 using System.Windows.Forms;
-// Подключение пространства имен EntityFrameworkCore для работы с Entity Framework Core (не используется в данном коде).
 using Microsoft.EntityFrameworkCore;
-// Подключение пространства имен Microsoft.EntityFrameworkCore.Metadata.Internal (не используется в данном коде).
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-// Подключение для работы с MySQL базой данных.
 using MySql.Data.MySqlClient;
-// Подключение пространства имен static System.Runtime.InteropServices.JavaScript.JSType (не используется в данном коде).
 using static System.Runtime.InteropServices.JavaScript.JSType;
-// Подключение пространства имен static System.Windows.Forms.VisualStyles.VisualStyleElement (не используется в данном коде).
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-// Подключение пространства имен static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database (не используется в данном коде).
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 
